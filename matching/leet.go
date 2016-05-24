@@ -1,22 +1,36 @@
 package matching
+
 import (
-	"github.com/spofdamon/zxcvbn-go/match"
+	"bytes"
+	"encoding/json"
+	"github.com/spofdamon/zxcvbn-go/data"
 	"github.com/spofdamon/zxcvbn-go/entropy"
+	"github.com/spofdamon/zxcvbn-go/match"
 	"strings"
 )
 
+var L33T_PERMS []map[string]string
+
+func init() {
+	data, err := zxcvbn_data.Asset("data/L33tPerms.json")
+	if err != nil {
+		panic("Can't find asset")
+	}
+
+	json.NewDecoder(bytes.NewReader(data)).Decode(&L33T_PERMS)
+}
 
 func l33tMatch(password string) []match.Match {
 
-	substitutions := relevantL33tSubtable(password)
+	// substitutions := relevantL33tSubtable(password)
 
-	permutations := getAllPermutationsOfLeetSubstitutions(password, substitutions)
+	permutations := getAllSubstitutedPasswords(password)
 
 	var matches []match.Match
 
 	for _, permutation := range permutations {
 		for _, mather := range DICTIONARY_MATCHERS {
-			matches = append(matches,mather(permutation)...)
+			matches = append(matches, mather(permutation)...)
 		}
 	}
 
@@ -28,6 +42,18 @@ func l33tMatch(password string) []match.Match {
 	return matches
 }
 
+func getAllSubstitutedPasswords(password string) []string {
+	var perms []string
+
+	for _, l := range L33T_PERMS {
+		for k, v := range l {
+			perms = append(perms, strings.Replace(password, k, v, -1))
+		}
+	}
+
+	return perms
+}
+
 func getAllPermutationsOfLeetSubstitutions(password string, substitutionsMap map[string][]string) []string {
 
 	var permutations []string
@@ -37,13 +63,13 @@ func getAllPermutationsOfLeetSubstitutions(password string, substitutionsMap map
 			for _, sub := range splice {
 				if string(char) == sub {
 					var permutation string
-					permutation = password[:index]+value+password[index+1:]
+					permutation = password[:index] + value + password[index+1:]
 
 					permutations = append(permutations, permutation)
 					if index < len(permutation) {
-						tempPermutations := getAllPermutationsOfLeetSubstitutions(permutation[index + 1:], substitutionsMap)
+						tempPermutations := getAllPermutationsOfLeetSubstitutions(permutation[index+1:], substitutionsMap)
 						for _, temp := range tempPermutations {
-							permutations = append(permutations, permutation[:index + 1] + temp)
+							permutations = append(permutations, permutation[:index+1]+temp)
 						}
 
 					}
