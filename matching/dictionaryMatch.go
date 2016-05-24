@@ -1,8 +1,8 @@
 package matching
 
 import (
-	"github.com/nbutton23/zxcvbn-go/match"
-	"github.com/nbutton23/zxcvbn-go/entropy"
+	"github.com/spofdamon/zxcvbn-go/match"
+	"github.com/spofdamon/zxcvbn-go/entropy"
 	"strings"
 )
 

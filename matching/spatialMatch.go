@@ -1,10 +1,10 @@
 package matching
 
 import (
-	"github.com/nbutton23/zxcvbn-go/match"
-	"github.com/nbutton23/zxcvbn-go/entropy"
+	"github.com/spofdamon/zxcvbn-go/match"
+	"github.com/spofdamon/zxcvbn-go/entropy"
 	"strings"
-	"github.com/nbutton23/zxcvbn-go/adjacency"
+	"github.com/spofdamon/zxcvbn-go/adjacency"
 )
 
 func spatialMatch(password string) (matches []match.Match) {

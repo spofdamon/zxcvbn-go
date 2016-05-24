@@ -1,11 +1,11 @@
 package matching
 
 import (
-	"github.com/nbutton23/zxcvbn-go/match"
+	"github.com/spofdamon/zxcvbn-go/match"
 	"strings"
 	"regexp"
 	"strconv"
-	"github.com/nbutton23/zxcvbn-go/entropy"
+	"github.com/spofdamon/zxcvbn-go/entropy"
 )
 
 

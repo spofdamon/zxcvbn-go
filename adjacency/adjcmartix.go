@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"log"
 	//	"fmt"
-	"github.com/nbutton23/zxcvbn-go/data"
+	"github.com/spofdamon/zxcvbn-go/data"
 )
 
 type AdjacencyGraph struct {

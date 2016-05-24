@@ -2,7 +2,7 @@ package frequency
 
 import (
 	"encoding/json"
-	"github.com/nbutton23/zxcvbn-go/data"
+	"github.com/spofdamon/zxcvbn-go/data"
 	"log"
 )
 
